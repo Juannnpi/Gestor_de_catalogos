@@ -108,8 +108,11 @@ namespace Gestor_de_catálogo
             else
             {
                 if (campo == "Precio")
-                    if(!soloNumeros(filtro))
+                    if (!soloNumeros(filtro))
+                    {
+                        MessageBox.Show("Completar solo con números", "Filtro", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                         return;
+                    }
                 dgvCatalogo.DataSource = negocio.filtrar(campo, criterio, filtro);
             }                
         }
