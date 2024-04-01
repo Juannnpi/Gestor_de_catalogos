@@ -19,7 +19,6 @@ namespace Gestor_de_catálogo
         {
             InitializeComponent();
         }
-
         private void frmCatalogo_Load(object sender, EventArgs e)
         {
             cargar();
@@ -116,6 +115,16 @@ namespace Gestor_de_catálogo
                 dgvCatalogo.DataSource = negocio.filtrar(campo, criterio, filtro);
             }                
         }
+        private void btnEliminarL_Click(object sender, EventArgs e)
+        {
+            eliminar(true);
+        }
+        private void btnEliminarF_Click(object sender, EventArgs e)
+        {
+            eliminar();
+        }
+
+
         private void cargar()
         {
             ArticulosNegocio negocio = new ArticulosNegocio();
@@ -161,6 +170,34 @@ namespace Gestor_de_catálogo
                     return true;
             }
             return false;
+        }
+        private void eliminar(bool logico = false)
+        {
+            ArticulosNegocio negocio = new ArticulosNegocio();
+            Articulo seleccion;
+            try
+            {
+                DialogResult respuesta = MessageBox.Show("¿Está seguro que desea eliminar el artículo?", "Eliminar", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (respuesta == DialogResult.Yes)
+                {
+                    if (dgvCatalogo.CurrentRow == null)
+                    {
+                        MessageBox.Show("Primero seleccione un artículo.", "Eliminar");
+                        return;
+                    }
+                    seleccion = (Articulo)dgvCatalogo.CurrentRow.DataBoundItem;                        
+                    if (logico)
+                        negocio.eliminarLogico(seleccion.Id);
+                    else
+                        negocio.eliminarFisico(seleccion.Id);
+                }
+                cargar();   
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+
         }
     }
 }

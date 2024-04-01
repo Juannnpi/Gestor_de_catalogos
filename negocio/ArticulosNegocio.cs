@@ -84,5 +84,64 @@ namespace negocio
             listar();
             return lista;
         }
+
+        public void eliminarLogico(int id)
+        {
+            try
+            {
+                datos.setearConsulta(ConfigurationManager.AppSettings["accion-eliminarlogico"]);
+                datos.setearParametro("@Id", id);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void eliminarFisico(int id)
+        {
+            try
+            {
+                datos.setearConsulta(ConfigurationManager.AppSettings["accion-eliminar"]);
+                datos.setearParametro("@Id", id);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+        public void agregarArticulo(Articulo articulo)
+        {
+            try
+            {
+                datos.setearConsulta(ConfigurationManager.AppSettings["accion-insertar"]);
+                datos.setearParametro("@Codigo", articulo.Codigo);
+                datos.setearParametro("@Nombre", articulo.Nombre);
+                datos.setearParametro("@Descripcion", articulo.Descripcion);
+                datos.setearParametro("@IdMarca", articulo.Marca.Id);
+                datos.setearParametro("@IdCategoria", articulo.Categoria.Id);
+                datos.setearParametro("@ImagenUrl", articulo.urlImagen);
+                datos.setearParametro("@Precio", articulo.Precio);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
     }
 }

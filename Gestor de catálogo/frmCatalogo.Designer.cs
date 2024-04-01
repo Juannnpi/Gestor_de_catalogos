@@ -45,6 +45,7 @@
             this.lblFiltro = new System.Windows.Forms.Label();
             this.txtFiltroAv = new System.Windows.Forms.TextBox();
             this.lblArticulos = new System.Windows.Forms.Label();
+            this.btnDetalle = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCatalogo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxImagen)).BeginInit();
             this.SuspendLayout();
@@ -55,6 +56,7 @@
             this.dgvCatalogo.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvCatalogo.EditMode = System.Windows.Forms.DataGridViewEditMode.EditProgrammatically;
             this.dgvCatalogo.Location = new System.Drawing.Point(12, 64);
+            this.dgvCatalogo.MultiSelect = false;
             this.dgvCatalogo.Name = "dgvCatalogo";
             this.dgvCatalogo.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvCatalogo.Size = new System.Drawing.Size(585, 283);
@@ -89,7 +91,7 @@
             // 
             // btnAgregar
             // 
-            this.btnAgregar.Location = new System.Drawing.Point(12, 354);
+            this.btnAgregar.Location = new System.Drawing.Point(12, 355);
             this.btnAgregar.Name = "btnAgregar";
             this.btnAgregar.Size = new System.Drawing.Size(75, 23);
             this.btnAgregar.TabIndex = 2;
@@ -98,7 +100,7 @@
             // 
             // btnModificar
             // 
-            this.btnModificar.Location = new System.Drawing.Point(94, 354);
+            this.btnModificar.Location = new System.Drawing.Point(99, 355);
             this.btnModificar.Name = "btnModificar";
             this.btnModificar.Size = new System.Drawing.Size(75, 23);
             this.btnModificar.TabIndex = 3;
@@ -107,21 +109,23 @@
             // 
             // btnEliminarF
             // 
-            this.btnEliminarF.Location = new System.Drawing.Point(176, 354);
+            this.btnEliminarF.Location = new System.Drawing.Point(408, 354);
             this.btnEliminarF.Name = "btnEliminarF";
             this.btnEliminarF.Size = new System.Drawing.Size(91, 23);
             this.btnEliminarF.TabIndex = 4;
             this.btnEliminarF.Text = "Eliminar Físico";
             this.btnEliminarF.UseVisualStyleBackColor = true;
+            this.btnEliminarF.Click += new System.EventHandler(this.btnEliminarF_Click);
             // 
             // btnEliminarL
             // 
-            this.btnEliminarL.Location = new System.Drawing.Point(273, 354);
+            this.btnEliminarL.Location = new System.Drawing.Point(505, 354);
             this.btnEliminarL.Name = "btnEliminarL";
             this.btnEliminarL.Size = new System.Drawing.Size(92, 23);
             this.btnEliminarL.TabIndex = 5;
             this.btnEliminarL.Text = "Eliminar Lógico";
             this.btnEliminarL.UseVisualStyleBackColor = true;
+            this.btnEliminarL.Click += new System.EventHandler(this.btnEliminarL_Click);
             // 
             // btnBuscar
             // 
@@ -205,11 +209,21 @@
             this.lblArticulos.TabIndex = 16;
             this.lblArticulos.Text = "Artículos";
             // 
+            // btnDetalle
+            // 
+            this.btnDetalle.Location = new System.Drawing.Point(186, 355);
+            this.btnDetalle.Name = "btnDetalle";
+            this.btnDetalle.Size = new System.Drawing.Size(75, 23);
+            this.btnDetalle.TabIndex = 17;
+            this.btnDetalle.Text = "Ver Detalle";
+            this.btnDetalle.UseVisualStyleBackColor = true;
+            // 
             // frmCatalogo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(898, 450);
+            this.Controls.Add(this.btnDetalle);
             this.Controls.Add(this.lblArticulos);
             this.Controls.Add(this.txtFiltroAv);
             this.Controls.Add(this.lblFiltro);
@@ -261,6 +275,7 @@
         private System.Windows.Forms.Label lblFiltro;
         private System.Windows.Forms.TextBox txtFiltroAv;
         private System.Windows.Forms.Label lblArticulos;
+        private System.Windows.Forms.Button btnDetalle;
     }
 }
 
