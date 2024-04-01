@@ -11,13 +11,14 @@ namespace negocio
     public class ArticulosNegocio
     {
         AccesoDatos datos = new AccesoDatos();
+        List<Articulo> lista = new List<Articulo>();
+        string consulta = ConfigurationManager.AppSettings["consulta-listar"];
 
         public List<Articulo> listar()
         {
-            List<Articulo> lista = new List<Articulo>();
             try
             {
-                datos.setearConsulta(ConfigurationManager.AppSettings["consulta-listar"]);
+                datos.setearConsulta(consulta);
                 datos.ejecutarLectura();
                 while (datos.Lector.Read())
                 {
@@ -46,6 +47,42 @@ namespace negocio
             {
                 datos.cerrarConexion();
             }
+        }
+        public List<Articulo> filtrar(string campo, string criterio, string filtro)
+        {
+            if (campo == "Precio")
+            {
+                switch (criterio)
+                {
+                    case "Mayor a":
+                        consulta += "AND A.Precio > '" + filtro + "'";
+                        break;
+                    case "Menor a":
+                        consulta += "AND A.Precio < '" + filtro + "'";
+                        break;                        
+                }
+            }
+            else if (campo == "Nombre")
+            {
+                switch (criterio)
+                {
+                    case "Comienza con":
+                        consulta += "AND A.Nombre like '" + filtro + "%'";
+                        break;
+                    case "Termina con":
+                        consulta += "AND A.Nombre like '%" + filtro + "'";
+                        break;
+                    default:
+                        consulta += "AND A.Nombre like '%" + filtro + "%'";
+                        break;
+                }
+            }            
+            if (campo == "Marca")            
+                consulta += "AND M.Descripcion = '" + criterio + "'";            
+            if (campo == "Categoría")
+                consulta += "AND C.Descripcion = '" + criterio + "'";
+            listar();
+            return lista;
         }
     }
 }

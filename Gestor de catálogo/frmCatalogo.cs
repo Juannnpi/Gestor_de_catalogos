@@ -23,6 +23,11 @@ namespace Gestor_de_catálogo
         private void frmCatalogo_Load(object sender, EventArgs e)
         {
             cargar();
+            cboCampo.Items.Add("Nombre");
+            cboCampo.Items.Add("Marca");
+            cboCampo.Items.Add("Categoría");
+            cboCampo.Items.Add("Precio");
+            cboCampo.SelectedIndex = 0;
         }
         private void dgvCatalogo_SelectionChanged(object sender, EventArgs e)
         {
@@ -30,7 +35,83 @@ namespace Gestor_de_catálogo
             {
                 Articulo seleccion = (Articulo)dgvCatalogo.CurrentRow.DataBoundItem;
                 cargarImagen(seleccion.urlImagen);
+                habilitarBotones();
             }
+            else
+                deshabilitarBotones();
+        }
+        private void txtFiltroRapido_TextChanged(object sender, EventArgs e)
+        {
+            List<Articulo> listaFiltrada;
+            string filtro = txtFiltroRapido.Text;
+            if (filtro.Length > 2)
+            {
+                listaFiltrada = listaArticulos.FindAll(x => x.Nombre.ToUpper().Contains(filtro.ToUpper()) || x.Marca.Descripcion.ToUpper().Contains(filtro.ToUpper()) || x.Categoria.Descripcion.ToUpper().Contains(filtro.ToUpper()));
+            }
+            else
+                listaFiltrada = listaArticulos;
+            dgvCatalogo.DataSource = null;
+            dgvCatalogo.DataSource = listaFiltrada;
+            ocultarColumnasyFormato();
+        }
+        private void cboCampo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string campo = cboCampo.SelectedItem.ToString();
+            if (campo == "Nombre")
+            {
+                cboCriterio.DataSource = null;
+                cboCriterio.Items.Clear();
+                cboCriterio.Items.Add("Comienza con");
+                cboCriterio.Items.Add("Contiene");
+                cboCriterio.Items.Add("Termina con");
+                cboCriterio.SelectedIndex = 0;
+            }
+            else if (campo == "Marca")
+            {
+                try
+                {
+                MarcaNegocio negocio = new MarcaNegocio();
+                cboCriterio.DataSource = null;
+                cboCriterio.DataSource = negocio.listar();
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+            else if (campo == "Categoría")
+            {
+                CategoriaNegocio negocio = new CategoriaNegocio();
+                cboCriterio.DataSource = null;
+                cboCriterio.DataSource = negocio.listar();
+            }
+            else if (campo == "Precio")
+            {
+                cboCriterio.DataSource = null;
+                cboCriterio.Items.Clear();
+                cboCriterio.Items.Add("Mayor a");                
+                cboCriterio.Items.Add("Menor a");
+                cboCriterio.SelectedIndex = 0;
+            }
+        }
+        private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            string campo = cboCampo.Text;
+            string criterio = cboCriterio.Text;
+            string filtro = txtFiltroAv.Text;
+            ArticulosNegocio negocio = new ArticulosNegocio();
+            if (filtro == "" && campo != "Marca" && campo != "Categoría")
+            {
+                dgvCatalogo.DataSource = listaArticulos;
+                MessageBox.Show("Falta completar el filtro", "Filtro", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            else
+            {
+                if (campo == "Precio")
+                    if(!soloNumeros(filtro))
+                        return;
+                dgvCatalogo.DataSource = negocio.filtrar(campo, criterio, filtro);
+            }                
         }
         private void cargar()
         {
@@ -57,6 +138,26 @@ namespace Gestor_de_catálogo
                 pbxImagen.Load("https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/681px-Placeholder_view_vector.svg.png");
             }
         }
-
+        private void habilitarBotones()
+        {
+            btnModificar.Enabled = true;
+            btnEliminarF.Enabled = true;
+            btnEliminarL.Enabled = true;
+        }
+        private void deshabilitarBotones()
+        {
+            btnModificar.Enabled = false;
+            btnEliminarF.Enabled = false;
+            btnEliminarL.Enabled = false;
+        }
+        private bool soloNumeros(string texto)
+        {
+            foreach (char item in texto)
+            {
+                if (char.IsNumber(item))
+                    return true;
+            }
+            return false;
+        }
     }
 }
