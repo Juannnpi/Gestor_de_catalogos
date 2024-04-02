@@ -32,8 +32,8 @@ namespace Gestor_de_catálogo
         {
             if (dgvCatalogo.CurrentRow != null)
             {
-                Articulo seleccion = (Articulo)dgvCatalogo.CurrentRow.DataBoundItem;
-                cargarImagen(seleccion.urlImagen);
+                ptgDetalles.SelectedObject = null;
+                pbxImagen.Image = null;
                 habilitarBotones();
             }
             else
@@ -123,6 +123,19 @@ namespace Gestor_de_catálogo
         {
             eliminar();
         }
+        private void btnDetalle_Click(object sender, EventArgs e)
+        {            
+            if (dgvCatalogo.CurrentRow != null)
+            {
+                Articulo seleccion = (Articulo)dgvCatalogo.CurrentRow.DataBoundItem;
+                ptgDetalles.SelectedObject = seleccion;                
+                cargarImagen(seleccion.urlImagen);
+            }
+            else
+            {
+                MessageBox.Show("Selecione un artículo", "Detalles");
+            }
+        }
 
 
         private void cargar()
@@ -135,8 +148,11 @@ namespace Gestor_de_catálogo
         private void ocultarColumnasyFormato()
         {
             dgvCatalogo.Columns["Id"].Visible = false;
+            dgvCatalogo.Columns["Codigo"].Visible = false;
+            dgvCatalogo.Columns["Descripcion"].Visible = false;
             dgvCatalogo.Columns["urlImagen"].Visible = false;
-            dgvCatalogo.Columns["Precio"].DefaultCellStyle.Format = "C";           
+            dgvCatalogo.Columns["Precio"].DefaultCellStyle.Format = "C";
+            
         }
         private void cargarImagen(string imagen)
         {
@@ -155,12 +171,14 @@ namespace Gestor_de_catálogo
             btnModificar.Enabled = true;
             btnEliminarF.Enabled = true;
             btnEliminarL.Enabled = true;
+            btnDetalle.Enabled = true;
         }
         private void deshabilitarBotones()
         {
             btnModificar.Enabled = false;
             btnEliminarF.Enabled = false;
             btnEliminarL.Enabled = false;
+            btnDetalle.Enabled = false;
         }
         private bool soloNumeros(string texto)
         {

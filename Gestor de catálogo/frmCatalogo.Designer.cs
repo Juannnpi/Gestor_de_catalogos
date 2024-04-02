@@ -46,6 +46,7 @@
             this.txtFiltroAv = new System.Windows.Forms.TextBox();
             this.lblArticulos = new System.Windows.Forms.Label();
             this.btnDetalle = new System.Windows.Forms.Button();
+            this.ptgDetalles = new System.Windows.Forms.PropertyGrid();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCatalogo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxImagen)).BeginInit();
             this.SuspendLayout();
@@ -59,13 +60,13 @@
             this.dgvCatalogo.MultiSelect = false;
             this.dgvCatalogo.Name = "dgvCatalogo";
             this.dgvCatalogo.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvCatalogo.Size = new System.Drawing.Size(585, 283);
+            this.dgvCatalogo.Size = new System.Drawing.Size(363, 283);
             this.dgvCatalogo.TabIndex = 1;
             this.dgvCatalogo.SelectionChanged += new System.EventHandler(this.dgvCatalogo_SelectionChanged);
             // 
             // pbxImagen
             // 
-            this.pbxImagen.Location = new System.Drawing.Point(603, 64);
+            this.pbxImagen.Location = new System.Drawing.Point(796, 64);
             this.pbxImagen.Name = "pbxImagen";
             this.pbxImagen.Size = new System.Drawing.Size(283, 283);
             this.pbxImagen.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -217,12 +218,24 @@
             this.btnDetalle.TabIndex = 17;
             this.btnDetalle.Text = "Ver Detalle";
             this.btnDetalle.UseVisualStyleBackColor = true;
+            this.btnDetalle.Click += new System.EventHandler(this.btnDetalle_Click);
+            // 
+            // ptgDetalles
+            // 
+            this.ptgDetalles.HelpVisible = false;
+            this.ptgDetalles.Location = new System.Drawing.Point(383, 64);
+            this.ptgDetalles.Name = "ptgDetalles";
+            this.ptgDetalles.PropertySort = System.Windows.Forms.PropertySort.NoSort;
+            this.ptgDetalles.Size = new System.Drawing.Size(407, 283);
+            this.ptgDetalles.TabIndex = 18;
+            this.ptgDetalles.ToolbarVisible = false;
             // 
             // frmCatalogo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(898, 450);
+            this.ClientSize = new System.Drawing.Size(1090, 450);
+            this.Controls.Add(this.ptgDetalles);
             this.Controls.Add(this.btnDetalle);
             this.Controls.Add(this.lblArticulos);
             this.Controls.Add(this.txtFiltroAv);
@@ -242,9 +255,9 @@
             this.Controls.Add(this.pbxImagen);
             this.Controls.Add(this.dgvCatalogo);
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(914, 489);
+            this.MaximumSize = new System.Drawing.Size(1106, 489);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(914, 489);
+            this.MinimumSize = new System.Drawing.Size(1106, 489);
             this.Name = "frmCatalogo";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Catálogo de artículos";
@@ -276,6 +289,7 @@
         private System.Windows.Forms.TextBox txtFiltroAv;
         private System.Windows.Forms.Label lblArticulos;
         private System.Windows.Forms.Button btnDetalle;
+        private System.Windows.Forms.PropertyGrid ptgDetalles;
     }
 }
 
