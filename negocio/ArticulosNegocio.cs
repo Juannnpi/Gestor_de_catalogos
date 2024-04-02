@@ -120,7 +120,7 @@ namespace negocio
                 datos.cerrarConexion();
             }
         }
-        public void agregarArticulo(Articulo articulo)
+        public void agregar(Articulo articulo)
         {
             try
             {
@@ -132,6 +132,31 @@ namespace negocio
                 datos.setearParametro("@IdCategoria", articulo.Categoria.Id);
                 datos.setearParametro("@ImagenUrl", articulo.urlImagen);
                 datos.setearParametro("@Precio", articulo.Precio);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void modificar(Articulo articulo)
+        {
+            try
+            {
+                datos.setearConsulta(ConfigurationManager.AppSettings["accion-modificar"]);
+                datos.setearParametro("@Codigo", articulo.Codigo);
+                datos.setearParametro("@Nombre", articulo.Nombre);
+                datos.setearParametro("@Descripcion", articulo.Descripcion);
+                datos.setearParametro("@IdMarca", articulo.Marca.Id);
+                datos.setearParametro("@IdCategoria", articulo.Categoria.Id);
+                datos.setearParametro("@ImagenUrl", articulo.urlImagen);
+                datos.setearParametro("@Precio", articulo.Precio);
+                datos.setearParametro("@Id", articulo.Id);
                 datos.ejecutarAccion();
             }
             catch (Exception ex)

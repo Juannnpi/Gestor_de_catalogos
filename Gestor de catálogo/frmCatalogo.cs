@@ -133,7 +133,7 @@ namespace Gestor_de_catálogo
             }
             else
             {
-                MessageBox.Show("Selecione un artículo", "Detalles");
+                MessageBox.Show("Selecione un artículo", "Detalles", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -162,7 +162,6 @@ namespace Gestor_de_catálogo
             }
             catch (Exception)
             {
-
                 pbxImagen.Load("https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Placeholder_view_vector.svg/681px-Placeholder_view_vector.svg.png");
             }
         }
@@ -184,10 +183,10 @@ namespace Gestor_de_catálogo
         {
             foreach (char item in texto)
             {
-                if (char.IsNumber(item))
-                    return true;
+                if (!(char.IsNumber(item)))
+                    return false;
             }
-            return false;
+            return true;
         }
         private void eliminar(bool logico = false)
         {
@@ -200,7 +199,7 @@ namespace Gestor_de_catálogo
                 {
                     if (dgvCatalogo.CurrentRow == null)
                     {
-                        MessageBox.Show("Primero seleccione un artículo.", "Eliminar");
+                        MessageBox.Show("Primero seleccione un artículo.", "Eliminar", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         return;
                     }
                     seleccion = (Articulo)dgvCatalogo.CurrentRow.DataBoundItem;                        
@@ -215,6 +214,33 @@ namespace Gestor_de_catálogo
             {
                 MessageBox.Show(ex.ToString());
             }
+
+        }
+
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
+            frmAltaArticulo alta = new frmAltaArticulo();
+            alta.ShowDialog();
+            cargar();
+        }
+
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+            if (dgvCatalogo.CurrentRow != null)
+            {
+                Articulo seleccion = (Articulo)dgvCatalogo.CurrentRow.DataBoundItem;
+                frmAltaArticulo modificar = new frmAltaArticulo(seleccion);
+                modificar.ShowDialog();
+                cargar();
+            }
+            else
+            {
+                MessageBox.Show("Seleccione el artículo a modificar", "Modificar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void btnHabilitar_Click(object sender, EventArgs e)
+        {
 
         }
     }

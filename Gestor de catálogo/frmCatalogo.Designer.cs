@@ -47,6 +47,7 @@
             this.lblArticulos = new System.Windows.Forms.Label();
             this.btnDetalle = new System.Windows.Forms.Button();
             this.ptgDetalles = new System.Windows.Forms.PropertyGrid();
+            this.btnHabilitar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCatalogo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxImagen)).BeginInit();
             this.SuspendLayout();
@@ -98,6 +99,7 @@
             this.btnAgregar.TabIndex = 2;
             this.btnAgregar.Text = "Agregar";
             this.btnAgregar.UseVisualStyleBackColor = true;
+            this.btnAgregar.Click += new System.EventHandler(this.btnAgregar_Click);
             // 
             // btnModificar
             // 
@@ -107,13 +109,14 @@
             this.btnModificar.TabIndex = 3;
             this.btnModificar.Text = "Modificar";
             this.btnModificar.UseVisualStyleBackColor = true;
+            this.btnModificar.Click += new System.EventHandler(this.btnModificar_Click);
             // 
             // btnEliminarF
             // 
             this.btnEliminarF.Location = new System.Drawing.Point(408, 354);
             this.btnEliminarF.Name = "btnEliminarF";
             this.btnEliminarF.Size = new System.Drawing.Size(91, 23);
-            this.btnEliminarF.TabIndex = 4;
+            this.btnEliminarF.TabIndex = 5;
             this.btnEliminarF.Text = "Eliminar Físico";
             this.btnEliminarF.UseVisualStyleBackColor = true;
             this.btnEliminarF.Click += new System.EventHandler(this.btnEliminarF_Click);
@@ -123,7 +126,7 @@
             this.btnEliminarL.Location = new System.Drawing.Point(505, 354);
             this.btnEliminarL.Name = "btnEliminarL";
             this.btnEliminarL.Size = new System.Drawing.Size(92, 23);
-            this.btnEliminarL.TabIndex = 5;
+            this.btnEliminarL.TabIndex = 6;
             this.btnEliminarL.Text = "Eliminar Lógico";
             this.btnEliminarL.UseVisualStyleBackColor = true;
             this.btnEliminarL.Click += new System.EventHandler(this.btnEliminarL_Click);
@@ -133,7 +136,7 @@
             this.btnBuscar.Location = new System.Drawing.Point(603, 413);
             this.btnBuscar.Name = "btnBuscar";
             this.btnBuscar.Size = new System.Drawing.Size(75, 23);
-            this.btnBuscar.TabIndex = 9;
+            this.btnBuscar.TabIndex = 10;
             this.btnBuscar.Text = "Buscar";
             this.btnBuscar.UseVisualStyleBackColor = true;
             this.btnBuscar.Click += new System.EventHandler(this.btnBuscar_Click);
@@ -163,7 +166,7 @@
             this.cboCampo.Location = new System.Drawing.Point(57, 414);
             this.cboCampo.Name = "cboCampo";
             this.cboCampo.Size = new System.Drawing.Size(131, 21);
-            this.cboCampo.TabIndex = 6;
+            this.cboCampo.TabIndex = 7;
             this.cboCampo.SelectedIndexChanged += new System.EventHandler(this.cboCampo_SelectedIndexChanged);
             // 
             // lblCriterio
@@ -182,7 +185,7 @@
             this.cboCriterio.Location = new System.Drawing.Point(240, 414);
             this.cboCriterio.Name = "cboCriterio";
             this.cboCriterio.Size = new System.Drawing.Size(135, 21);
-            this.cboCriterio.TabIndex = 7;
+            this.cboCriterio.TabIndex = 8;
             // 
             // lblFiltro
             // 
@@ -198,7 +201,7 @@
             this.txtFiltroAv.Location = new System.Drawing.Point(417, 414);
             this.txtFiltroAv.Name = "txtFiltroAv";
             this.txtFiltroAv.Size = new System.Drawing.Size(177, 20);
-            this.txtFiltroAv.TabIndex = 8;
+            this.txtFiltroAv.TabIndex = 9;
             // 
             // lblArticulos
             // 
@@ -215,7 +218,7 @@
             this.btnDetalle.Location = new System.Drawing.Point(186, 355);
             this.btnDetalle.Name = "btnDetalle";
             this.btnDetalle.Size = new System.Drawing.Size(75, 23);
-            this.btnDetalle.TabIndex = 17;
+            this.btnDetalle.TabIndex = 4;
             this.btnDetalle.Text = "Ver Detalle";
             this.btnDetalle.UseVisualStyleBackColor = true;
             this.btnDetalle.Click += new System.EventHandler(this.btnDetalle_Click);
@@ -230,11 +233,22 @@
             this.ptgDetalles.TabIndex = 18;
             this.ptgDetalles.ToolbarVisible = false;
             // 
+            // btnHabilitar
+            // 
+            this.btnHabilitar.Location = new System.Drawing.Point(603, 354);
+            this.btnHabilitar.Name = "btnHabilitar";
+            this.btnHabilitar.Size = new System.Drawing.Size(97, 23);
+            this.btnHabilitar.TabIndex = 19;
+            this.btnHabilitar.Text = "Habilitar artículos";
+            this.btnHabilitar.UseVisualStyleBackColor = true;
+            this.btnHabilitar.Click += new System.EventHandler(this.btnHabilitar_Click);
+            // 
             // frmCatalogo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1090, 450);
+            this.Controls.Add(this.btnHabilitar);
             this.Controls.Add(this.ptgDetalles);
             this.Controls.Add(this.btnDetalle);
             this.Controls.Add(this.lblArticulos);
@@ -290,6 +304,7 @@
         private System.Windows.Forms.Label lblArticulos;
         private System.Windows.Forms.Button btnDetalle;
         private System.Windows.Forms.PropertyGrid ptgDetalles;
+        private System.Windows.Forms.Button btnHabilitar;
     }
 }
 
