@@ -217,6 +217,7 @@
             this.btnCargarImagen.TabIndex = 7;
             this.btnCargarImagen.Text = "+";
             this.btnCargarImagen.UseVisualStyleBackColor = true;
+            this.btnCargarImagen.Click += new System.EventHandler(this.btnCargarImagen_Click);
             // 
             // frmAltaArticulo
             // 
