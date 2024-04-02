@@ -38,6 +38,13 @@ namespace Gestor_de_catálogo
             }
             else
                 deshabilitarBotones();
+            if (btnHabilitar.Text == "Volver al catálogo")
+            {
+                deshabilitarBotones();                
+                btnDetalle.Enabled = true;
+                if (dgvCatalogo.CurrentRow == null)
+                    deshabilitarBotones();
+            }
         }
         private void txtFiltroRapido_TextChanged(object sender, EventArgs e)
         {
