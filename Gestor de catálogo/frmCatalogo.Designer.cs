@@ -48,6 +48,7 @@
             this.btnDetalle = new System.Windows.Forms.Button();
             this.ptgDetalles = new System.Windows.Forms.PropertyGrid();
             this.btnHabilitar = new System.Windows.Forms.Button();
+            this.lblDetalles = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCatalogo)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pbxImagen)).BeginInit();
             this.SuspendLayout();
@@ -63,6 +64,7 @@
             this.dgvCatalogo.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvCatalogo.Size = new System.Drawing.Size(363, 283);
             this.dgvCatalogo.TabIndex = 1;
+            this.dgvCatalogo.CellMouseDoubleClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvCatalogo_CellMouseDoubleClick);
             this.dgvCatalogo.SelectionChanged += new System.EventHandler(this.dgvCatalogo_SelectionChanged);
             // 
             // pbxImagen
@@ -237,17 +239,27 @@
             // 
             this.btnHabilitar.Location = new System.Drawing.Point(603, 354);
             this.btnHabilitar.Name = "btnHabilitar";
-            this.btnHabilitar.Size = new System.Drawing.Size(97, 23);
+            this.btnHabilitar.Size = new System.Drawing.Size(122, 23);
             this.btnHabilitar.TabIndex = 19;
             this.btnHabilitar.Text = "Habilitar artículos";
             this.btnHabilitar.UseVisualStyleBackColor = true;
             this.btnHabilitar.Click += new System.EventHandler(this.btnHabilitar_Click);
+            // 
+            // lblDetalles
+            // 
+            this.lblDetalles.AutoSize = true;
+            this.lblDetalles.Location = new System.Drawing.Point(263, 361);
+            this.lblDetalles.Name = "lblDetalles";
+            this.lblDetalles.Size = new System.Drawing.Size(123, 13);
+            this.lblDetalles.TabIndex = 20;
+            this.lblDetalles.Text = "(o doblde click en celda)";
             // 
             // frmCatalogo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1090, 450);
+            this.Controls.Add(this.lblDetalles);
             this.Controls.Add(this.btnHabilitar);
             this.Controls.Add(this.ptgDetalles);
             this.Controls.Add(this.btnDetalle);
@@ -305,6 +317,7 @@
         private System.Windows.Forms.Button btnDetalle;
         private System.Windows.Forms.PropertyGrid ptgDetalles;
         private System.Windows.Forms.Button btnHabilitar;
+        private System.Windows.Forms.Label lblDetalles;
     }
 }
 

@@ -136,8 +136,77 @@ namespace Gestor_de_catálogo
                 MessageBox.Show("Selecione un artículo", "Detalles", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+        private void dgvCatalogo_CellMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            btnDetalle_Click(sender, e);
+        }
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
+            if (dgvCatalogo.CurrentRow != null)
+            {
+                Articulo seleccion = new Articulo();
+                seleccion = dgvCatalogo.CurrentRow.DataBoundItem as Articulo;
+                if (seleccion.Codigo == "-1")
+                {
+                    ArticulosNegocio negocio = new ArticulosNegocio();
+                    try
+                    {
+                        negocio.habilitar(seleccion.Id);
+                        MessageBox.Show("Recuerde modificar el código del artículo habilitado.", "Artículo habilitado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        cargar();
+                        return;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.ToString());
+                    }
+                }
+            }
+            //para liberar imagen
+            
+            //pbxImagen.Image = null;
+            //ptgDetalles.ResetText();
+            //dgvCatalogo.DataSource = null;
+            frmAltaArticulo alta = new frmAltaArticulo();
+            alta.ShowDialog();
+            cargar();
+        }
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+            if (dgvCatalogo.CurrentRow != null)
+            {
+                Articulo seleccion = (Articulo)dgvCatalogo.CurrentRow.DataBoundItem;
+                frmAltaArticulo modificar = new frmAltaArticulo(seleccion);
+                modificar.ShowDialog();
+                cargar();
+            }
+            else
+            {
+                MessageBox.Show("Seleccione el artículo a modificar", "Modificar", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        private void btnHabilitar_Click(object sender, EventArgs e)
+        {
+            if (btnHabilitar.Text == "Volver al catálogo")
+            {
+                cargar();
+                btnHabilitar.Text = "Habilitar artículos";
+                return;
+            }
+            cargarDeshabilitados();
+            deshabilitarBotones();
+            btnDetalle.Enabled = true;
+            btnHabilitar.Text = "Volver al catálogo";
+        }
 
 
+        private void cargarDeshabilitados()
+        {
+            ArticulosNegocio negocio = new ArticulosNegocio();
+            listaArticulos = negocio.listarDeshabilitados();
+            dgvCatalogo.DataSource = listaArticulos;
+            ocultarColumnasyFormato();
+        }
         private void cargar()
         {
             ArticulosNegocio negocio = new ArticulosNegocio();
@@ -214,34 +283,6 @@ namespace Gestor_de_catálogo
             {
                 MessageBox.Show(ex.ToString());
             }
-
-        }
-
-        private void btnAgregar_Click(object sender, EventArgs e)
-        {
-            frmAltaArticulo alta = new frmAltaArticulo();
-            alta.ShowDialog();
-            cargar();
-        }
-
-        private void btnModificar_Click(object sender, EventArgs e)
-        {
-            if (dgvCatalogo.CurrentRow != null)
-            {
-                Articulo seleccion = (Articulo)dgvCatalogo.CurrentRow.DataBoundItem;
-                frmAltaArticulo modificar = new frmAltaArticulo(seleccion);
-                modificar.ShowDialog();
-                cargar();
-            }
-            else
-            {
-                MessageBox.Show("Seleccione el artículo a modificar", "Modificar", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void btnHabilitar_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }

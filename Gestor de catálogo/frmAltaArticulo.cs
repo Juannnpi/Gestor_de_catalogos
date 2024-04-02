@@ -6,16 +6,19 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Configuration;
 
 namespace Gestor_de_catálogo
 {
     public partial class frmAltaArticulo : Form
     {
         Articulo articulo = null;
+        OpenFileDialog archivo = null;
         public frmAltaArticulo()
         {
             InitializeComponent();
@@ -99,13 +102,26 @@ namespace Gestor_de_catálogo
                     articulo.Precio = decimal.Parse(txtPrecio.Text);
                 if (txtCodigo.Text == "" || txtNombre.Text == "" || cboMarca.SelectedIndex == -1 || cboCategoria.SelectedIndex == -1)
                     MessageBox.Show("Falta cargar datos", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                else if (txtPrecio.Text == "00,00" || txtPrecio.Text == "")
+                else if (txtPrecio.Text == "00,00" || txtPrecio.Text == "" || articulo.Precio == 0)
                 {
                     txtPrecio.Select();
-                    MessageBox.Show("Falta cargar el precio", "", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Falta cargar el precio", "Precio", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else if (txtCodigo.Text == "-1")
+                {
+                    txtCodigo.Select();
+                    MessageBox.Show("Código inválido", "Código", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {
+                    //No conseguí liberar el archivo si se carga la misma imagen. Después de seleccionar una fila y querer agregar tira error
+
+                    //if (!(txtImagen.Text.ToUpper().Contains("HTTP")))
+                    //{
+                    //    Directory.CreateDirectory(ConfigurationManager.AppSettings["carpeta-imagen"]);
+                    //    File.Copy(archivo.FileName, ConfigurationManager.AppSettings["carpeta-imagen"] + articulo.Codigo + "_" + archivo.SafeFileName, true);
+                    //    articulo.urlImagen = ConfigurationManager.AppSettings["carpeta-imagen"] + articulo.Codigo + "_" + archivo.SafeFileName;
+                    //}
                     if (articulo.Id == 0)
                         negocio.agregar(articulo);
                     else
@@ -118,6 +134,41 @@ namespace Gestor_de_catálogo
                 MessageBox.Show(ex.ToString());
             }
         }
+        private void txtPrecio_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != ','))
+            {
+                e.Handled = true;
+            }
+            if ((e.KeyChar == ',') && ((sender as TextBox).Text.IndexOf(',') > -1))
+            {
+                e.Handled = true;
+            }
+        }
+        private void txtImagen_Leave(object sender, EventArgs e)
+        {
+            cargarImagen(txtImagen.Text);
+        }
+        private void btnCargarImagen_Click(object sender, EventArgs e)
+        {
+            archivo = new OpenFileDialog();
+            archivo.Filter = "Imagen JPG|*.jpg|Imagen PNG|*.png|Imagen BMP|*.bmp|Imagen GIF|*.gif";
+            if (archivo.ShowDialog() == DialogResult.OK)
+            {
+                txtImagen.Text = archivo.FileName;
+                cargarImagen(archivo.FileName);                
+            }
+        }
+        private void txtPrecio_TextChanged(object sender, EventArgs e)
+        {
+            //string precio = txtPrecio.Text;
+            //txtPrecio.Text = String.Format("{0:C2}", precio);
+        }
+        private void txtPrecio_Leave(object sender, EventArgs e)
+        {
+            //txtPrecio.Text = String.Format("{0:C2}", sender);
+        }
+
 
         private void cargarImagen(string imagen)
         {
@@ -140,31 +191,5 @@ namespace Gestor_de_catálogo
             return true;
         }
 
-        private void txtPrecio_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != ','))
-            {
-                e.Handled = true;
-            }
-            if ((e.KeyChar == ',') && ((sender as TextBox).Text.IndexOf(',') > -1))
-            {
-                e.Handled = true;
-            }
-        }
-        private void txtPrecio_TextChanged(object sender, EventArgs e)
-        {
-            //string precio = txtPrecio.Text;
-            //txtPrecio.Text = String.Format("{0:C2}", precio);
-        }
-
-        private void txtPrecio_Leave(object sender, EventArgs e)
-        {
-            //txtPrecio.Text = String.Format("{0:C2}", sender);
-        }
-
-        private void txtImagen_Leave(object sender, EventArgs e)
-        {
-            cargarImagen(txtImagen.Text);
-        }
     }
 }
