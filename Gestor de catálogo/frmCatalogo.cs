@@ -50,6 +50,7 @@ namespace Gestor_de_catálogo
         {
             List<Articulo> listaFiltrada;
             string filtro = txtFiltroRapido.Text;
+            txtFiltroRapido.PlaceholderText = "Busque por Nombre, Marca o Categoría";
             if (filtro.Length > 2)
             {
                 listaFiltrada = listaArticulos.FindAll(x => x.Nombre.ToUpper().Contains(filtro.ToUpper()) || x.Marca.Descripcion.ToUpper().Contains(filtro.ToUpper()) || x.Categoria.Descripcion.ToUpper().Contains(filtro.ToUpper()));
