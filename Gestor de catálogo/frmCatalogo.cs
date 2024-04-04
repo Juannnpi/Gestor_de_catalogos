@@ -27,6 +27,7 @@ namespace Gestor_de_catálogo
             cboCampo.Items.Add("Categoría");
             cboCampo.Items.Add("Precio");
             cboCampo.SelectedIndex = 0;
+            txtFiltroRapido.PlaceholderText = "Busque por Nombre, Marca o Categoría";
         }
         private void dgvCatalogo_SelectionChanged(object sender, EventArgs e)
         {
@@ -49,8 +50,7 @@ namespace Gestor_de_catálogo
         private void txtFiltroRapido_TextChanged(object sender, EventArgs e)
         {
             List<Articulo> listaFiltrada;
-            string filtro = txtFiltroRapido.Text;
-            txtFiltroRapido.PlaceholderText = "Busque por Nombre, Marca o Categoría";
+            string filtro = txtFiltroRapido.Text;            
             if (filtro.Length > 2)
             {
                 listaFiltrada = listaArticulos.FindAll(x => x.Nombre.ToUpper().Contains(filtro.ToUpper()) || x.Marca.Descripcion.ToUpper().Contains(filtro.ToUpper()) || x.Categoria.Descripcion.ToUpper().Contains(filtro.ToUpper()));
