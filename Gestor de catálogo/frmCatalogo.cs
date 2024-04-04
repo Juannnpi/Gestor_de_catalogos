@@ -27,7 +27,7 @@ namespace Gestor_de_catálogo
             cboCampo.Items.Add("Categoría");
             cboCampo.Items.Add("Precio");
             cboCampo.SelectedIndex = 0;
-            txtFiltroRapido.PlaceholderText = "Busque por Nombre, Marca o Categoría";
+            //txtFiltroRapido.PlaceholderText = "Busque por Nombre, Marca o Categoría";
         }
         private void dgvCatalogo_SelectionChanged(object sender, EventArgs e)
         {
